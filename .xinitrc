@@ -1,5 +1,7 @@
 #!/bin/sh
 
+#exec ~/.config/polybar/launch_polybar &
+
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
@@ -48,16 +50,19 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-# twm &
-# xclock -geometry 50x50-1+1 &
-# xterm -geometry 80x50+494+51 &
-# xterm -geometry 80x20+494-0 &
-#! exec xterm -geometry 80x66+0+0 -name login
+exec ~/Data/Pictures/Desktops/.seasonalfeh &
+setxkbmap -option keypad:pointerkeys
+setxkbmap -option caps:swapescape
+setxkbmap -option altwin:swap_alt_win
+#xmodmap ~/.xmodmap
+python ~/Projects/Dailies/today.py
+python Turkeybot.py &
+exec picom -i 1.0 -m 1.0 -e 1.0 &
+# exec --no-startup-id dunst -config ~/.config/dunst/dunstrc
+exec i3
 
-~/Media/Pictures/Desktops/.seasonalfeh &
+export GTK_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+export QT_IM_MODULE=ibus
 
-xmodmap ~/.xmodmap &
-
-exec compton &
-
-exec i3 
+exec ibus-daemon -drx &
